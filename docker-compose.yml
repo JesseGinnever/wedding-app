@@ -4,11 +4,15 @@ version: '2' # specify docker-compose version
 services:
   wedding-ui: # name of the first service
     build: wedding-ui # specify the directory of the Dockerfile
+    volumes:
+      - ./wedding-ui/src:/sedovic-ginnever-wedding-webapp/src
     ports:
       - "3000:3000" # specify port forewarding
 
   wedding-server: #name of the second service
     build: wedding-server # specify the directory of the Dockerfile
+    volumes:
+      - ./wedding-server:/usr/src/app
     ports:
       - "4000:4000" #specify ports forewarding
 

@@ -7,6 +7,8 @@ RUN mkdir -p /usr/src/app
 # Change directory so that our commands run inside this new directory
 WORKDIR /usr/src/app
 
+RUN npm install nodemon -g
+
 # Copy dependency definitions
 COPY package.json /usr/src/app
 
@@ -17,7 +19,7 @@ RUN npm install
 COPY . /usr/src/app
 
 # Expose the port the app runs in
-EXPOSE 3000
+EXPOSE 4000
 
 # Serve the app
-CMD ["npm", "start"]
+CMD ["nodemon", "server.js"]
