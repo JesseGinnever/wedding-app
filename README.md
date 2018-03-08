@@ -1,7 +1,12 @@
 https://scotch.io/tutorials/create-a-mean-app-with-angular-2-and-docker-compose
 DOCKER COMPOSE
-docker-compose up --build
-docker-compose down --rmi local
+docker-compose up --build  OR docker-compose -f docker-compose.yml up
+docker-compose down --rmi local  OR docker-compose -f docker-compose.yml down
+
+VOLUME
+mongodbdata = weddingapp_mongodbdata
+destroy volume
+    docker-compose -f docker-compose.yml down -v
 
 SERVER
 docker build -t wedding-server ./wedding-server

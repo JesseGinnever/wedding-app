@@ -15,8 +15,15 @@ services:
       - ./wedding-server:/usr/src/app
     ports:
       - "4000:4000" #specify ports forewarding
+    links:
+      - database # link this service to the database service
 
   database: # name of the third service
     image: mongo # specify image to build container from
     ports:
       - "27017:27017" # specify port forewarding
+    volumes:
+      - mongodbdata:/data/db
+
+volumes:
+  mongodbdata:
