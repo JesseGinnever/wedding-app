@@ -71,7 +71,7 @@ class RSVPFormCard extends React.Component {
           {this.state.attending === 'true' ?
             <div>
               <Typography variant="headline" component="h2">
-                We are so glad you could make it, PARTY NAME!
+                We are so glad you could make it, {this.props.partyName}!
               </Typography>
               <Typography component="p">
                 Please let us know how many will be in your party below.
@@ -121,7 +121,7 @@ class RSVPFormCard extends React.Component {
                       disabled
                       id="partyName"
                       label="Party Name"
-                      value="Tom and Patty"
+                      value={this.props.partyName}
                       className={classes.textField}
                       margin="normal"
                     />
@@ -156,6 +156,7 @@ RSVPFormCard.propTypes = {
   attending: PropTypes.string,
   updateInvitationResponsePartySize: PropTypes.func,
   partySize: PropTypes.string,
+  partyName: PropTypes.string,
 };
 
 export default withStyles(styles)(RSVPFormCard);

@@ -2,6 +2,7 @@
 const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
+const cors = require('cors');
 
 // MongoDB URL from the docker-compose file
 const dbHost = 'mongodb://database/wedding-app';
@@ -23,6 +24,8 @@ const guestSchema = new mongoose.Schema({
 
 // create mongoose model
 const Guest = mongoose.model('Guest', guestSchema);
+
+router.use(cors());
 
 /* GET api listing. */
 router.get('/', (req, res) => {

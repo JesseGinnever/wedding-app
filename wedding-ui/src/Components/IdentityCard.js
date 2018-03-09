@@ -41,12 +41,6 @@ class IdentityCard extends React.Component {
     if (this.state.weddingCode) {
       this.props.updateInvitationResponse('weddingCode', this.state.weddingCode)
     }
-
-    if (this.state.weddingCode && this.state.weddingCode.length >= 3) {
-      this.props.validationCallback(true);
-    } else if (this.state.stepIsValid === true) {
-      this.props.validationCallback(false);
-    }
   }
 
   componentWillMount() {
@@ -82,7 +76,6 @@ class IdentityCard extends React.Component {
 
 IdentityCard.propTypes = {
   classes: PropTypes.object.isRequired,
-  validationCallback: PropTypes.func,
   updateInvitationResponse: PropTypes.func,
   weddingCode: PropTypes.string,
 };

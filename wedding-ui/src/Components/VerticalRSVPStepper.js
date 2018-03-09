@@ -15,6 +15,9 @@ import IdentityCard from './IdentityCard';
 import FoodDrinkCard from './FoodDrinkCard';
 import CommentCard from './CommentCard';
 
+//Custom Services
+import GuestService from '../Services/GuestService';
+
 const styles = theme => ({
   root: {
     width: '100%',
@@ -83,6 +86,25 @@ class VerticalRSVPStepper extends React.Component {
     });
   }
 
+  updateInvitationResponseByWeddingCode = (key, value) => {
+    GuestService.getGuestInfoByWeddingCode(value)
+    .then((response) => response.json())
+    .then((responseJson) => {
+      //console.log("getGuestInfoByWeddingCode response:" + JSON.stringify(responseJson))
+      if (responseJson.length > 0) {
+        this.setState({
+          invitationResponse: responseJson[0],
+        });
+        this.updateFormValidation(true);
+      } else {
+        this.updateFormValidation(false);
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  }
+
   updateInvitationResponsePartySize = (newPartySize) => {
     if (this.partySize === newPartySize) { //@TODO THE FUCK IS HAPPENING!?!?!?!?
       return;
@@ -110,9 +132,8 @@ class VerticalRSVPStepper extends React.Component {
     switch (step) {
       case 0:
           return <IdentityCard 
-                  validationCallback={this.updateFormValidation} 
                   weddingCode={this.state.invitationResponse.weddingCode}
-                  updateInvitationResponse={this.updateInvitationResponse}
+                  updateInvitationResponse={this.updateInvitationResponseByWeddingCode}
                  />;
       case 1:
         return <RSVPFormCard 
@@ -121,6 +142,7 @@ class VerticalRSVPStepper extends React.Component {
                 updateInvitationResponse={this.updateInvitationResponse}
                 partySize={this.state.invitationResponse.partySize}
                 updateInvitationResponsePartySize={this.updateInvitationResponsePartySize}
+                partyName={this.state.invitationResponse.partyName}
                />;
       case 2:
         return <FoodDrinkCard
