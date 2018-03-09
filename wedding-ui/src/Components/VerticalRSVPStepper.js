@@ -87,7 +87,7 @@ class VerticalRSVPStepper extends React.Component {
   }
 
   updateInvitationResponseByWeddingCode = (key, value) => {
-    GuestService.getGuestInfoByWeddingCode(value)
+    GuestService.getGuestInfoByWeddingCode(value.toUpperCase())
     .then((response) => response.json())
     .then((responseJson) => {
       //console.log("getGuestInfoByWeddingCode response:" + JSON.stringify(responseJson))
@@ -106,16 +106,14 @@ class VerticalRSVPStepper extends React.Component {
   }
 
   updateInvitationResponsePartySize = (newPartySize) => {
-    if (this.partySize === newPartySize) { //@TODO THE FUCK IS HAPPENING!?!?!?!?
-      return;
-    }
-    
-    var mealArray = [];
-    for(var i = 0; i < newPartySize; i++) {
-      mealArray.push(this.createMealObject());
+    if (this.state.invitationResponse.meals.length != newPartySize) {
+      var mealArray = [];
+      for(var i = 0; i < newPartySize; i++) {
+        mealArray.push(this.createMealObject());
+      }
+      this.updateInvitationResponse('meals', mealArray);
     }
 
-    this.updateInvitationResponse('meals', mealArray);
     this.updateInvitationResponse('partySize', newPartySize);
   }
 
