@@ -109,10 +109,10 @@ class VerticalRSVPStepper extends React.Component {
     GuestService.updateGuestInfo(this.state.invitationResponse)
     .then((response) => response.json())
     .then((responseJson) => {
-      console.log("saveUpdatedInvitationResponseToService response:" + JSON.stringify(responseJson))
+      //console.log("saveUpdatedInvitationResponseToService response:" + JSON.stringify(responseJson))
     })
     .catch((error) => {
-      console.error(error);
+      //console.error(error);
     });
   }
 
