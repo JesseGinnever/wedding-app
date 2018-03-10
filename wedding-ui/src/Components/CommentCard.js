@@ -33,7 +33,7 @@ const styles = {
 
 class CommentCard extends React.Component {
   state = {
-    comments: this.props.message,
+    comments: this.props.comments,
     emailAddress: this.props.emailAddress,
   };
 
@@ -66,7 +66,7 @@ class CommentCard extends React.Component {
                 label="Comments and Requests"
                 className={classes.textField}
                 margin="normal"
-                value={this.state.comments}
+                value={this.props.comments}
                 onChange={(e) => this.props.updateInvitationResponse('comments', e.target.value)}
               />
             </Grid>
@@ -77,7 +77,7 @@ class CommentCard extends React.Component {
                   label="Email Address"
                   className={classes.textField}
                   margin="normal"
-                  value={this.state.emailAddress}
+                  value={this.props.emailAddress}
                   onChange={(e) => this.props.updateInvitationResponse('emailAddress', e.target.value)}
                 />
               </Grid>

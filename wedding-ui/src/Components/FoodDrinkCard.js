@@ -69,8 +69,6 @@ const styles = {
   }
 };
 
-
-
 class FoodDrinkCard extends React.Component {
   state = {
     meals: this.props.meals,

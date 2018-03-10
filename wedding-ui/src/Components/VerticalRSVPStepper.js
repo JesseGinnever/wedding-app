@@ -105,8 +105,19 @@ class VerticalRSVPStepper extends React.Component {
     });
   }
 
+  saveUpdatedInvitationResponseToService = () => {
+    GuestService.updateGuestInfo(this.state.invitationResponse)
+    .then((response) => response.json())
+    .then((responseJson) => {
+      console.log("saveUpdatedInvitationResponseToService response:" + JSON.stringify(responseJson))
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  }
+
   updateInvitationResponsePartySize = (newPartySize) => {
-    if (this.state.invitationResponse.meals.length != newPartySize) {
+    if (parseInt(this.state.invitationResponse.meals.length, 0) !== parseInt(newPartySize, 0)) {
       var mealArray = [];
       for(var i = 0; i < newPartySize; i++) {
         mealArray.push(this.createMealObject());
@@ -244,7 +255,7 @@ class VerticalRSVPStepper extends React.Component {
             <Typography variant="headline" component="h2">
               All Done!
             </Typography>
-            {console.log(this.state.invitationResponse)}
+            {this.saveUpdatedInvitationResponseToService()}
             <Typography component="p">
                 Thank you for RSVP'ing to our party!
                 If you need to change anything, please feel free to complete the forms again!
