@@ -7,7 +7,6 @@ import Stepper, { Step, StepLabel, StepContent } from 'material-ui/Stepper';
 import Button from 'material-ui/Button';
 import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
-import Card from 'material-ui/Card';
 
 //Custom Components
 import RSVPFormCard from './RSVPFormCard';
@@ -32,7 +31,7 @@ const styles = theme => ({
   resetContainer: {
     padding: theme.spacing.unit * 3,
   },
-  card: {
+  paper: {
     maxWidth: '80%',
     padding: 10,
     marginLeft  : 'auto',
@@ -217,56 +216,56 @@ class VerticalRSVPStepper extends React.Component {
 
     return (
       <div className={classes.root}>
-      <Card className={classes.card}>
-        <Stepper activeStep={activeStep} orientation="vertical">
-          {steps.map((label, index) => {
-            return (
-              <Step key={label}>
-                <StepLabel>{label}</StepLabel>
-                <StepContent>
-                  {this.getStepContent(index)}
-                  <div className={classes.actionsContainer}>
-                    <div>
-                      <Button
-                        disabled={activeStep === 0}
-                        onClick={this.handleBack}
-                        className={classes.button}
-                      >
-                        Back
-                      </Button>
-                      <Button
-                        variant="raised"
-                        color="primary"
-                        onClick={this.handleNext}
-                        className={classes.button}
-                        disabled={!this.state.stepIsValid}
-                      >
-                        {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-                      </Button>
+        <Paper className={classes.paper}>
+          <Stepper activeStep={activeStep} orientation="vertical">
+            {steps.map((label, index) => {
+              return (
+                <Step key={label}>
+                  <StepLabel>{label}</StepLabel>
+                  <StepContent>
+                    {this.getStepContent(index)}
+                    <div className={classes.actionsContainer}>
+                      <div>
+                        <Button
+                          disabled={activeStep === 0}
+                          onClick={this.handleBack}
+                          className={classes.button}
+                        >
+                          Back
+                        </Button>
+                        <Button
+                          variant="raised"
+                          color="primary"
+                          onClick={this.handleNext}
+                          className={classes.button}
+                          disabled={!this.state.stepIsValid}
+                        >
+                          {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                        </Button>
+                      </div>
                     </div>
-                  </div>
-                </StepContent>
-              </Step>
-            );
-          })}
-        </Stepper>
-        {activeStep === steps.length && (
-          <Paper square elevation={0} className={classes.resetContainer}>
-            <Typography variant="headline" component="h2">
-              All Done!
-            </Typography>
-            {this.saveUpdatedInvitationResponseToService()}
-            <Typography component="p">
-                Thank you for RSVP'ing to our party!
-                If you need to change anything, please feel free to complete the forms again!
-                We cannot wait to see you in April!
-            </Typography>
-            <Button onClick={this.handleReset} className={classes.button}>
-              Reset
-            </Button>
-          </Paper>
-        )}
-      </Card>
+                  </StepContent>
+                </Step>
+              );
+            })}
+          </Stepper>
+          {activeStep === steps.length && (
+            <Paper square elevation={0} className={classes.resetContainer}>
+              <Typography variant="headline" component="h2">
+                All Done!
+              </Typography>
+              {this.saveUpdatedInvitationResponseToService()}
+              <Typography component="p">
+                  Thank you for RSVP'ing to our party!
+                  If you need to change anything, please feel free to complete the forms again!
+                  We cannot wait to see you in April!
+              </Typography>
+              <Button onClick={this.handleReset} className={classes.button}>
+                Reset
+              </Button>
+            </Paper>
+          )}
+        </Paper>
       </div>
     );
   }
