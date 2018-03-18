@@ -9,7 +9,6 @@ import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui-icons/Menu';
 import Drawer from 'material-ui/Drawer';
 import Tabs, { Tab } from 'material-ui/Tabs';
-import Divider from 'material-ui/Divider';
 import InboxIcon from 'material-ui-icons/Inbox';
 import DraftsIcon from 'material-ui-icons/Drafts';
 import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
@@ -47,35 +46,26 @@ class ContentSection extends Component {
 
     const sideList = (
         <div>
-        <List component="nav">
-          <ListItem button>
-            <ListItemIcon>
-              <InboxIcon />
-            </ListItemIcon>
-            <ListItemText primary="Inbox" />
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon>
-              <DraftsIcon />
-            </ListItemIcon>
-            <ListItemText primary="Drafts" />
-          </ListItem>
-        </List>
-          <Divider />
-        <List component="nav">
-          <ListItem button>
-            <ListItemIcon>
-              <InboxIcon />
-            </ListItemIcon>
-            <ListItemText primary="Inbox" />
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon>
-              <DraftsIcon />
-            </ListItemIcon>
-            <ListItemText primary="Drafts" />
-          </ListItem>
-        </List>
+          <List component="nav" value={this.state.value}>
+            <ListItem button>
+              <ListItemIcon>
+                <InboxIcon />
+              </ListItemIcon>
+              <ListItemText primary="RSVP" onClick={() => this.handleChange(undefined, 0)}/>
+            </ListItem>
+            <ListItem button>
+              <ListItemIcon>
+                <DraftsIcon />
+              </ListItemIcon>
+              <ListItemText primary="Wedding Info" onClick={() => this.handleChange(undefined, 1)}/>
+            </ListItem>
+            <ListItem button>
+              <ListItemIcon>
+                <DraftsIcon />
+              </ListItemIcon>
+              <ListItemText primary="Food, Drinks, Games" onClick={() => this.handleChange(undefined, 2)}/>
+            </ListItem>
+          </List>
         </div>
     );
 
@@ -83,21 +73,21 @@ class ContentSection extends Component {
       <div className="ContentSection">
           <AppBar position="static">
               <Toolbar>
-                  <Hidden smDown>
+                  <Hidden mdUp>
                     <IconButton onClick={this.toggleDrawer('left', true)} aria-label="Menu">
                       <MenuIcon />
                     </IconButton>
                   </Hidden>
+                  <Typography variant="title" color="inherit" className="navBarTitle">
+                    Sedovic - Ginnever Wedding
+                  </Typography>
                   <Hidden smDown>
-                    <Typography variant="title" color="inherit" className="navBarTitle">
-                      Sedovic - Ginnever Wedding
-                    </Typography>
+                    <Tabs value={this.state.value} onChange={this.handleChange} centered fullWidth>
+                      <Tab label="RSVP" />
+                      <Tab label="Wedding Info" />
+                      <Tab label="Food, Drinks, Games" />
+                    </Tabs>
                   </Hidden>
-                <Tabs value={this.state.value} onChange={this.handleChange} centered fullWidth>
-                  <Tab label="RSVP" />
-                  <Tab label="Wedding Info" />
-                  <Tab label="Food, Drinks, Games" />
-                </Tabs>
               </Toolbar>
             </AppBar>
             <Drawer open={this.state.left} onClose={this.toggleDrawer('left', false)}>
