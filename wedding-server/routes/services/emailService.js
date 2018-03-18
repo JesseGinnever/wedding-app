@@ -122,10 +122,7 @@ function sendMail(guest) {
     '                          </tbody>' +
     '                        </table>' +
     '                        <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">Below is a summary of the information you provided for us.  If at any point in time you would like to change it, just revisit our website and you can edit this information after providing your wedding code!</p>' +
-    '                        <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">We can\'t wait to see you in April!</p>' +
-    '                      <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">' +
-    '                        <b>Attending</b>: ' + guest.attending +
-    '                      </p>' +  
+    '                        <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">We can\'t wait to see you in April!</p>' + 
     '                      <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">' +
     '                        <b>Party Size</b>: ' + guest.partySize +
     '                      </p>' +
