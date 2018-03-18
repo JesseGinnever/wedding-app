@@ -20,6 +20,7 @@ COPY . /usr/src/app
 
 # Expose the port the app runs in
 EXPOSE 4000
+EXPOSE 5858
 
 # Serve the app
 CMD ["nodemon", "server.js"]

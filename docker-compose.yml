@@ -7,21 +7,22 @@ services:
     volumes:
       - ./wedding-ui/src:/sedovic-ginnever-wedding-webapp/src
     ports:
-      - "3000:3000" # specify port forewarding
+      - "3000:3000" # specify port forwarding
 
   wedding-server: #name of the second service
     build: wedding-server # specify the directory of the Dockerfile
     volumes:
       - ./wedding-server:/usr/src/app
     ports:
-      - "4000:4000" #specify ports forewarding
+      - "4000:4000" #specify port forwarding
+      - "5858:5858" #debug port forwarding
     links:
       - database # link this service to the database service
 
   database: # name of the third service
     image: mongo # specify image to build container from
     ports:
-      - "27017:27017" # specify port forewarding
+      - "27017:27017" # specify port forwarding
     volumes:
       - mongodbdata:/data/db
 

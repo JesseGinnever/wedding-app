@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
 const cors = require('cors');
+const nodemailer = require('nodemailer');
+const sendMail = require('./services/emailService').sendMail;
 
 // MongoDB URL from the docker-compose file
 const dbHost = 'mongodb://database/wedding-app';
@@ -43,7 +45,6 @@ router.get('/', (req, res) => {
 router.get('/code/:weddingCode', (req, res) => {
     Guest.find({weddingCode: req.params.weddingCode}, (err, guests) => {
         if (err) res.status(500).send(error)
-
         res.status(200).json(guests);
     });
 });
@@ -62,9 +63,11 @@ router.post('/', (req, res) => {
         emailAddress: req.body.emailAddress
     };
 
+    sendMail(guest);
+
     Guest.findOneAndUpdate({weddingCode: req.body.weddingCode}, guest, error => {
         if (error) res.status(500).send(error);
-
+        
         res.status(201).json({
             message: 'guest created successfully'
         });
@@ -86,7 +89,6 @@ router.post('/create', (req, res) => {
 
     guest.save(error => {
         if (error) res.status(500).send(error);
-
         res.status(201).json({
             message: 'guest created successfully'
         });

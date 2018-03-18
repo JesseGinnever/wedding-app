@@ -174,7 +174,7 @@ class VerticalRSVPStepper extends React.Component {
 }
 
   handleNext = () => {
-    if (this.state.invitationResponse.attending === 'false' && this.state.activeStep !== getSteps().length - 1) {
+    if (this.state.invitationResponse.attending === 'false' && this.state.activeStep !== 0 && this.state.activeStep !== getSteps().length - 1) {
       this.setState({
         activeStep: getSteps().length - 1,
       });
