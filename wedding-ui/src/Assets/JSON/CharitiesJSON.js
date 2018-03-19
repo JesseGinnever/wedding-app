@@ -1,27 +1,39 @@
 const charitiesList = [
   {
     "name": "Missouri Jobs With Justice",
-    "description": "Right now, our democracy is broken — but we can fix it."
-  },
-  {
-    "name": "NCCJ St. Louis",
-    "description": "JOIN US IN MAKING THE WORLD A BETTER PLACE FOR ALL OF US, NOT JUST SOME OF US.."
-  },
-  {
-    "name": "Organization for Black Struggle",
-    "description": "Contribute to the creation of a society free of all forms of exploitation and oppression."
+    "description": "Right now, our democracy is broken — but we can fix it.",
+    "image": "http://www.jwj.org/wp-content/uploads/2013/11/jobs-with-justice1.png",
+    "donateUrl": "https://actionnetwork.org/fundraising/support-jobs-with-justice?&source=NAT_W_joinnavbutton"
   },
   {
     "name": "Missouri Jobs With Justice",
-    "description": "Right now, our democracy is broken — but we can fix it."
+    "description": "Right now, our democracy is broken — but we can fix it. Right now, our democracy is broken — but we can fix it.",
+    "image": "http://www.jwj.org/wp-content/uploads/2013/11/jobs-with-justice1.png",
+    "donateUrl": "https://actionnetwork.org/fundraising/support-jobs-with-justice?&source=NAT_W_joinnavbutton"
   },
   {
     "name": "Missouri Jobs With Justice",
-    "description": "JOIN US IN MAKING THE WORLD A BETTER PLACE FOR ALL OF US, NOT JUST SOME OF US..JOIN US IN MAKING THE WORLD A BETTER PLACE FOR ALL OF US, NOT JUST SOME OF US..JOIN US IN MAKING THE WORLD A BETTER PLACE FOR ALL OF US, NOT JUST SOME OF US..JOIN US IN MAKING THE WORLD A BETTER PLACE FOR ALL OF US, NOT JUST SOME OF US..JOIN US IN MAKING THE WORLD A BETTER PLACE FOR ALL OF US, NOT JUST SOME OF US..JOIN US IN MAKING THE WORLD A BETTER PLACE FOR ALL OF US, NOT JUST SOME OF US.."
+    "description": "Right now, our democracy is broken — but we can fix it. Right now, our democracy is broken — but we can fix it. Right now, our democracy is broken — but we can fix it. ",
+    "image": "http://www.jwj.org/wp-content/uploads/2013/11/jobs-with-justice1.png",
+    "donateUrl": "https://actionnetwork.org/fundraising/support-jobs-with-justice?&source=NAT_W_joinnavbutton"
   },
   {
     "name": "Missouri Jobs With Justice",
-    "description": "Right now, our democracy is broken — but we can fix it."
+    "description": "Right now, our democracy is broken — but we can fix it. Right now, our democracy is broken — but we can fix it. Right now, our democracy is broken — but we can fix it. Right now, our democracy is broken — but we can fix it. ",
+    "image": "http://www.jwj.org/wp-content/uploads/2013/11/jobs-with-justice1.png",
+    "donateUrl": "https://actionnetwork.org/fundraising/support-jobs-with-justice?&source=NAT_W_joinnavbutton"
+  },
+  {
+    "name": "Missouri Jobs With Justice",
+    "description": "Right now, our democracy is broken — but we can fix it.",
+    "image": "http://www.jwj.org/wp-content/uploads/2013/11/jobs-with-justice1.png",
+    "donateUrl": "https://actionnetwork.org/fundraising/support-jobs-with-justice?&source=NAT_W_joinnavbutton"
+  },
+  {
+    "name": "Missouri Jobs With Justice",
+    "description": "Right now, our democracy is broken — but we can fix it.",
+    "image": "http://www.jwj.org/wp-content/uploads/2013/11/jobs-with-justice1.png",
+    "donateUrl": "https://actionnetwork.org/fundraising/support-jobs-with-justice?&source=NAT_W_joinnavbutton"
   },
 ]
 

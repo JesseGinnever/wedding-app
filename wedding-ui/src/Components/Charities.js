@@ -21,11 +21,17 @@ const styles = theme => ({
     padding: 10,
     marginLeft  : 'auto',
     marginRight : 'auto',
+    marginTop : 40,
+  },
+  charityCard: {
+    padding: theme.spacing.unit * 2,
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
   },
   paperDetail: {
     maxWidth: '100%',
     padding: 10,
-    margin: 15,
+    margin: 10,
   },
   card: {
     margin: 15,
@@ -33,11 +39,16 @@ const styles = theme => ({
   },
   media: {
     height: 100,
+    backgroundSize: "auto",
   },
   cardContent: {
     height: 144,
     overflow: "hidden",
-  }
+  },
+  gridDiv: {
+    margin: 15,
+    width: '100%',
+  },
 });
 
 class Charities extends React.Component {
@@ -50,18 +61,24 @@ class Charities extends React.Component {
       return (
         <div className={classes.root}>
           <Paper className={classes.paper}>
-            <Paper className={classes.paperDetail}>
-
-            </Paper>
+            <Typography gutterBottom variant="display1" className={classes.paperDetail}>
+              We will not be accepting traditional gifts
+            </Typography>
+            <Typography gutterBottom variant="subheading" className={classes.paperDetail}>
+              We are very grateful that you want to help contribute to our futures, but we would be even more grateful if you would consider contibuting to the future of others.  Below is a list of some of the organizations we feel the most connected to.  We hope that you find an organization that speaks to an issue that is important to you!
+            </Typography>
+            <Typography gutterBottom variant="body2" className={classes.paperDetail}>
+              * any gifts received will be irresponsibly given to the nearest child or animal
+            </Typography>
             <Grid container spacing={24}>
+            <div key={'charity' + 0} className={classes.gridDiv}>
+              <Grid container spacing={24}>
               {charitiesList.map(function(charity, index) {
-                return <div key={'charity' + index}>
-                <Grid item xs={6}>
-                  <Card className={classes.card} >
+                return <Grid item xs={12} sm={6} md={3}>
+                  <Card className={classes.charityCard} >
                     <CardMedia
                       className={classes.media}
-                      image="/static/images/cards/contemplative-reptile.jpg"
-                      title="Contemplative Reptile"
+                      image={charity.image}
                     />
                     <CardContent className={classes.cardContent}>
                       <Typography gutterBottom variant="headline" component="h2">
@@ -72,16 +89,14 @@ class Charities extends React.Component {
                       </Typography>
                     </CardContent>
                     <CardActions>
-                      <Button size="small" color="primary">
-                        Share
-                      </Button>
-                      <Button size="small" color="primary">
-                        Learn More
+                      <Button size="small" color="primary" href={charity.donateUrl}>
+                        Donate
                       </Button>
                     </CardActions>
                   </Card>
+                </Grid>}, this)} 
                 </Grid>
-              </div>}, this)} 
+            </div>
             </Grid>
           </Paper>
         </div>
