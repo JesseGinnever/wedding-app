@@ -12,7 +12,6 @@ services:
   wedding-server: #name of the second service
     build: wedding-server # specify the directory of the Dockerfile
     volumes:
-      - ./wedding-server:/usr/src/app
     ports:
       - "4000:4000" #specify port forwarding
       - "5858:5858" #debug port forwarding

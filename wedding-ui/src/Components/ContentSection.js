@@ -16,7 +16,9 @@ import { withStyles } from 'material-ui/styles';
 import Hidden from 'material-ui/Hidden';
 
 //Custom Components
-import VerticalRSVPStepper from './VerticalRSVPStepper';
+
+import VerticalRSVPStepper from './VerticalRSVPStepper';  
+import Charities from './Charities';  
 
 const styles = theme => ({
   root: theme.mixins.gutters({
@@ -57,7 +59,7 @@ class ContentSection extends Component {
               <ListItemIcon>
                 <DraftsIcon />
               </ListItemIcon>
-              <ListItemText primary="Wedding Info" onClick={() => this.handleChange(undefined, 1)}/>
+              <ListItemText primary="Gifts" onClick={() => this.handleChange(undefined, 1)}/>
             </ListItem>
             <ListItem button>
               <ListItemIcon>
@@ -84,7 +86,7 @@ class ContentSection extends Component {
                   <Hidden smDown>
                     <Tabs value={this.state.value} onChange={this.handleChange} centered fullWidth>
                       <Tab label="RSVP" />
-                      <Tab label="Wedding Info" />
+                      <Tab label="Gifts" />
                       <Tab label="Food, Drinks, Games" />
                     </Tabs>
                   </Hidden>
@@ -97,7 +99,7 @@ class ContentSection extends Component {
             </Drawer>
             <div>
                 {this.state.value === 0 && <VerticalRSVPStepper />}
-                {this.state.value === 1 && <Button size="small">Learn Two</Button>}
+                {this.state.value === 1 && <Charities />}
                 {this.state.value === 2 && <Button size="small">Learn Three</Button>}
             </div>
             <footer>
