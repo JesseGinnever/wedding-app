@@ -4,6 +4,8 @@ version: '2' # specify docker-compose version
 services:
   wedding-ui: # name of the first service
     build: wedding-ui # specify the directory of the Dockerfile
+    volumes:
+          - ./wedding-ui/src:/sedovic-ginnever-wedding-webapp/src
     environment:
         - APP_ENV=production
     ports:
