@@ -1,4 +1,4 @@
-const apiEndpoint = "http://localhost:4000"
+const apiEndpoint = "http://104.248.235.197:4000"
 var GuestService = {};
 
 GuestService.getGuestInfoByWeddingCode = function(weddingCode) {
