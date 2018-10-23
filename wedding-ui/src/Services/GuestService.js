@@ -1,9 +1,9 @@
-const apiEndpoint = "http://104.248.235.197:4000"
-var GuestService = {};
+const apiEndpoint = "https://www.jesseginnever.com/api/";
+let GuestService = {};
 
 GuestService.getGuestInfoByWeddingCode = function(weddingCode) {
     return fetch(apiEndpoint + "/guest/code/" + weddingCode);
-}
+};
 
 GuestService.updateGuestInfo = function(invitationResponse) {
     return fetch(apiEndpoint + "/guest/", {
@@ -14,6 +14,6 @@ GuestService.updateGuestInfo = function(invitationResponse) {
         },
         body: JSON.stringify(invitationResponse)
     });
-}
+};
 
 export default GuestService
