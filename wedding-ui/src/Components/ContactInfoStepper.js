@@ -7,12 +7,11 @@ import Stepper, { Step, StepLabel, StepContent } from 'material-ui/Stepper';
 import Button from 'material-ui/Button';
 import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
+import CircularProgress from 'material-ui/Progress/CircularProgress'
 
 //Custom Components
-import RSVPFormCard from './RSVPFormCard';
 import IdentityCard from './IdentityCard';
-import FoodDrinkCard from './FoodDrinkCard';
-import CommentCard from './CommentCard';
+import ContactInfoCard from './ContactInfoCard';
 
 //Custom Services
 import GuestService from '../Services/GuestService';
@@ -57,16 +56,18 @@ class InvitationResponse {
 }
 
 function getSteps() {
-  return ['New Phone, Who Dis?', 'RSVP', 'Food & Drink', 'Done'];
+  return ['New Phone, Who Dis?', 'Contact Info'];
 }
 
-class VerticalRSVPStepper extends React.Component {
+class ContactInfoStepper extends React.Component {
   constructor() {
     super();
     this.state = {
       activeStep: 0,
       stepIsValid: false,
-      invitationResponse: new InvitationResponse()
+      invitationResponse: new InvitationResponse(),
+      nextButtonText: 'Next',
+      loading: false
     }
   }
 
@@ -86,13 +87,23 @@ class VerticalRSVPStepper extends React.Component {
   }
 
   updateInvitationResponseByWeddingCode = (key, value) => {
+    this.setState({
+      loading: true,
+      nextButtonText: ''
+    });
+
     GuestService.getGuestInfoByWeddingCode(value.toUpperCase())
     .then((response) => response.json())
     .then((responseJson) => {
       //console.log("getGuestInfoByWeddingCode response:" + JSON.stringify(responseJson))
+      this.setState({
+          nextButtonText: 'Next',
+          loading: false
+      });
       if (responseJson.length > 0) {
         this.setState({
           invitationResponse: responseJson[0],
+
         });
         this.updateFormValidation(true);
       } else {
@@ -113,7 +124,7 @@ class VerticalRSVPStepper extends React.Component {
     .catch((error) => {
       //console.error(error);
     });
-  }
+  };
 
   updateInvitationResponsePartySize = (newPartySize) => {
     if (parseInt(this.state.invitationResponse.meals.length, 0) !== parseInt(newPartySize, 0)) {
@@ -125,7 +136,7 @@ class VerticalRSVPStepper extends React.Component {
     }
 
     this.updateInvitationResponse('partySize', newPartySize);
-  }
+  };
 
   createMealObject = () => {
     return {
@@ -134,7 +145,7 @@ class VerticalRSVPStepper extends React.Component {
       side1: '',
       side2: '',
     }
-  }
+  };
 
   getStepContent = (step) => {
     switch (step) {
@@ -144,33 +155,18 @@ class VerticalRSVPStepper extends React.Component {
                   updateInvitationResponse={this.updateInvitationResponseByWeddingCode}
                  />;
       case 1:
-        return <RSVPFormCard 
-                validationCallback={this.updateFormValidation} 
-                attending={this.state.invitationResponse.attending}
-                updateInvitationResponse={this.updateInvitationResponse}
-                partySize={this.state.invitationResponse.partySize}
-                updateInvitationResponsePartySize={this.updateInvitationResponsePartySize}
-                partyName={this.state.invitationResponse.partyName}
-               />;
-      case 2:
-        return <FoodDrinkCard
-                validationCallback={this.updateFormValidation}
-                meals={this.state.invitationResponse.meals}
-                updateInvitationResponse={this.updateInvitationResponse}
-                drinkTotal={this.state.invitationResponse.drinkTotal}
-               />;
-      case 3:
-        return <CommentCard 
+        return <ContactInfoCard
                 validationCallback={this.updateFormValidation}
                 updateInvitationResponse={this.updateInvitationResponse}
                 comments={this.state.invitationResponse.comments}
                 attending={this.state.invitationResponse.attending}
                 emailAddress={this.state.invitationResponse.emailAddress}
-               />;
+                partyName={this.state.invitationResponse.partyName}
+              />;
       default:
             return 'Something has gone wrong.  Please refesh the page or contact us directly to RSVP';
     }
-}
+};
 
   handleNext = () => {
     if (this.state.invitationResponse.attending === 'false' && this.state.activeStep !== 0 && this.state.activeStep !== getSteps().length - 1) {
@@ -240,7 +236,8 @@ class VerticalRSVPStepper extends React.Component {
                           className={classes.button}
                           disabled={!this.state.stepIsValid}
                         >
-                          {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                          {activeStep === steps.length - 1 ? 'Finish' : this.state.nextButtonText}
+                          {this.state.loading ? <CircularProgress size={20} /> : ''}
                         </Button>
                       </div>
                     </div>
@@ -256,9 +253,16 @@ class VerticalRSVPStepper extends React.Component {
               </Typography>
               {this.saveUpdatedInvitationResponseToService()}
               <Typography component="p">
-                  Thank you for RSVP'ing to our party!
-                  If you need to change anything, please feel free to complete the forms again!
-                  We cannot wait to see you in April!
+                  Thank you for updating your contact info for us!
+              </Typography>
+              <Typography component="p">
+                  We will be sending the wedding invitation (which will be completed on this website) to this email address!
+              </Typography>
+              <Typography component="p">
+                  We will also be sending all wedding updates to the email entered in the previous step.
+              </Typography>
+              <Typography component="p">
+                  Please feel free to update this address at any time!
               </Typography>
               <Button onClick={this.handleReset} className={classes.button}>
                 Reset
@@ -271,8 +275,8 @@ class VerticalRSVPStepper extends React.Component {
   }
 }
 
-VerticalRSVPStepper.propTypes = {
+ContactInfoStepper.propTypes = {
   classes: PropTypes.object,
 };
 
-export default withStyles(styles)(VerticalRSVPStepper);
+export default withStyles(styles)(ContactInfoStepper);

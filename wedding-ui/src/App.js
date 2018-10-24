@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 //components
-import ContentSection from './Components/ContentSection';
+import Routes from './routes';
 
 //Theme Imports
 import './App.css';
@@ -40,7 +40,7 @@ class App extends Component {
     return (
       <div className="App">
         <MuiThemeProvider theme={theme}>
-          <ContentSection />
+          <Routes />
         </MuiThemeProvider>
       </div>
     );

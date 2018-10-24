@@ -1,4 +1,4 @@
-const apiEndpoint = "https://www.jesseginnever.com/api/";
+const apiEndpoint = process.env.REACT_APP_API_URL;
 let GuestService = {};
 
 GuestService.getGuestInfoByWeddingCode = function(weddingCode) {

@@ -18,7 +18,8 @@ import Hidden from 'material-ui/Hidden';
 //Custom Components
 
 import VerticalRSVPStepper from './VerticalRSVPStepper';  
-import Charities from './Charities';  
+import ContactInfoStepper from './ContactInfoStepper';
+import Charities from './Charities';
 
 const styles = theme => ({
   root: theme.mixins.gutters({
@@ -85,9 +86,10 @@ class ContentSection extends Component {
                   </Typography>
                   <Hidden smDown>
                     <Tabs value={this.state.value} onChange={this.handleChange} centered fullWidth>
-                      <Tab label="RSVP" />
-                      <Tab label="Gifts" />
-                      <Tab label="Food, Drinks, Games" />
+                        {process.env.REACT_APP_CONTACT_INFO_UPDATE_ONLY === 'false' ? <Tab label="RSVP" /> : null}
+                        {process.env.REACT_APP_CONTACT_INFO_UPDATE_ONLY === 'false' ? <Tab label="Gifts" /> : null}
+                        {process.env.REACT_APP_CONTACT_INFO_UPDATE_ONLY === 'false' ? <Tab label="Food, Drinks, Games" /> : null}
+                        {process.env.REACT_APP_CONTACT_INFO_UPDATE_ONLY === 'true' ? <Tab label="Invitation Address" /> : null}
                     </Tabs>
                   </Hidden>
               </Toolbar>
@@ -98,9 +100,10 @@ class ContentSection extends Component {
               </div>
             </Drawer>
             <div>
-                {this.state.value === 0 && <VerticalRSVPStepper />}
-                {this.state.value === 1 && <Charities />}
-                {this.state.value === 2 && <Button size="small">Learn Three</Button>}
+                {process.env.REACT_APP_CONTACT_INFO_UPDATE_ONLY === 'false' && this.state.value === 0 && <VerticalRSVPStepper />}
+                {process.env.REACT_APP_CONTACT_INFO_UPDATE_ONLY === 'false' && this.state.value === 1 && <Charities />}
+                {process.env.REACT_APP_CONTACT_INFO_UPDATE_ONLY === 'false' && this.state.value === 2 && <Button size="small">Learn Three</Button>}
+                {process.env.REACT_APP_CONTACT_INFO_UPDATE_ONLY === 'true' && this.state.value === 0 && <ContactInfoStepper/>}
             </div>
             <footer>
 
