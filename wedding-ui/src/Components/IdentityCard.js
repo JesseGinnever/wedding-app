@@ -6,6 +6,7 @@ import { withStyles } from 'material-ui/styles';
 import { CardContent }from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
 import TextField from 'material-ui/TextField';
+import CircularProgress from 'material-ui/Progress/CircularProgress'
 
 const styles = {
   card: {
@@ -20,17 +21,15 @@ const styles = {
   },
 };
 
-
-
 class IdentityCard extends React.Component {
   state = {
-    weddingCode: this.props.weddingCode,
+    weddingCode: this.props.weddingCode
   };
 
   onHandleWeddingCodeChange(event) {
     this.setState(
       {
-        weddingCode: event.target.value
+        weddingCode: event.target.value,
       },
       this.checkFormValidation
     )
@@ -69,6 +68,7 @@ class IdentityCard extends React.Component {
               value={this.state.weddingCode}
               onChange={(event) => this.onHandleWeddingCodeChange(event)}
             />
+            {this.props.isLoading ? <CircularProgress size={20} /> : ''}
           </CardContent>
     );
   }
@@ -78,6 +78,7 @@ IdentityCard.propTypes = {
   classes: PropTypes.object.isRequired,
   updateInvitationResponse: PropTypes.func,
   weddingCode: PropTypes.string,
+  isLoading: PropTypes.bool
 };
 
 export default withStyles(styles)(IdentityCard);

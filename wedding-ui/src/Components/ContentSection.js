@@ -27,13 +27,18 @@ const styles = theme => ({
     paddingBottom: 16,
     marginTop: theme.spacing.unit * 3,
   }),
+  button: {
+    margin: theme.spacing.unit,
+  },
 });
 
 class ContentSection extends Component {
 
   state = {
-    value: 0,
+    value: 0
   };
+
+  isContactInfoUpdateOnly = process.env.REACT_APP_CONTACT_INFO_UPDATE_ONLY === 'true';
 
   handleChange = (event, value) => {
     this.setState({ value });
@@ -46,30 +51,65 @@ class ContentSection extends Component {
   };
 
   render() {
+    const { classes } = this.props;
 
-    const sideList = (
+    const contactInfoList = (
         <div>
           <List component="nav" value={this.state.value}>
             <ListItem button>
               <ListItemIcon>
                 <InboxIcon />
               </ListItemIcon>
-              <ListItemText primary="RSVP" onClick={() => this.handleChange(undefined, 0)}/>
+              <ListItemText primary="Contact Info" onClick={() => this.handleChange(undefined, 0)}/>
             </ListItem>
             <ListItem button>
               <ListItemIcon>
                 <DraftsIcon />
               </ListItemIcon>
-              <ListItemText primary="Gifts" onClick={() => this.handleChange(undefined, 1)}/>
-            </ListItem>
-            <ListItem button>
-              <ListItemIcon>
-                <DraftsIcon />
-              </ListItemIcon>
-              <ListItemText primary="Food, Drinks, Games" onClick={() => this.handleChange(undefined, 2)}/>
+              <ListItemText primary="Photos" onClick={()=> window.open("process.env.PHOTO_URL", "_blank")}/>
             </ListItem>
           </List>
         </div>
+    );
+
+    const rsvpList = (
+        <div>
+          <List component="nav" value={this.state.value}>
+              <ListItem button>
+                  <ListItemIcon>
+                      <InboxIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="RSVP" onClick={() => this.handleChange(undefined, 0)}/>
+              </ListItem>
+              <ListItem button>
+                  <ListItemIcon>
+                      <DraftsIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Gifts" onClick={() => this.handleChange(undefined, 1)}/>
+              </ListItem>
+          </List>
+        </div>
+    );
+
+    const rsvpNavItems = (
+        <div>
+          <Tabs value={this.state.value} onChange={this.handleChange} centered fullWidth>
+            <Tab label="RSVP" />
+            <Tab label="Gifts" />
+            <Tab label="Food, Drinks, Games" />
+          </Tabs>
+        </div>
+    );
+
+    const contactInfoNavItems = (
+      <div>
+        <Tabs value={this.state.value} centered fullWidth>
+          <Tab label="Invitation Address" />
+          <Button variant="raised" color="secondary" className={classes.button} onClick={()=> window.open(process.env.PHOTO_URL, "_blank")}>
+            See Engagement Photos
+          </Button>
+        </Tabs>
+      </div>
     );
 
     return (
@@ -85,25 +125,20 @@ class ContentSection extends Component {
                     Sedovic - Ginnever Wedding
                   </Typography>
                   <Hidden smDown>
-                    <Tabs value={this.state.value} onChange={this.handleChange} centered fullWidth>
-                        {process.env.REACT_APP_CONTACT_INFO_UPDATE_ONLY === 'false' ? <Tab label="RSVP" /> : null}
-                        {process.env.REACT_APP_CONTACT_INFO_UPDATE_ONLY === 'false' ? <Tab label="Gifts" /> : null}
-                        {process.env.REACT_APP_CONTACT_INFO_UPDATE_ONLY === 'false' ? <Tab label="Food, Drinks, Games" /> : null}
-                        {process.env.REACT_APP_CONTACT_INFO_UPDATE_ONLY === 'true' ? <Tab label="Invitation Address" /> : null}
-                    </Tabs>
+                    {this.isContactInfoUpdateOnly ? contactInfoNavItems : rsvpNavItems}
                   </Hidden>
               </Toolbar>
             </AppBar>
             <Drawer open={this.state.left} onClose={this.toggleDrawer('left', false)}>
               <div tabIndex={0} role="button" onClick={this.toggleDrawer('left', false)} onKeyDown={this.toggleDrawer('left', false)}>
-                {sideList}
+                {!this.isContactInfoUpdateOnly ? rsvpList : contactInfoList}
               </div>
             </Drawer>
             <div>
-                {process.env.REACT_APP_CONTACT_INFO_UPDATE_ONLY === 'false' && this.state.value === 0 && <VerticalRSVPStepper />}
-                {process.env.REACT_APP_CONTACT_INFO_UPDATE_ONLY === 'false' && this.state.value === 1 && <Charities />}
-                {process.env.REACT_APP_CONTACT_INFO_UPDATE_ONLY === 'false' && this.state.value === 2 && <Button size="small">Learn Three</Button>}
-                {process.env.REACT_APP_CONTACT_INFO_UPDATE_ONLY === 'true' && this.state.value === 0 && <ContactInfoStepper/>}
+                {!this.isContactInfoUpdateOnly && this.state.value === 0 && <VerticalRSVPStepper />}
+                {!this.isContactInfoUpdateOnly && this.state.value === 1 && <Charities />}
+                {!this.isContactInfoUpdateOnly && this.state.value === 2 && <Button size="small">Learn Three</Button>}
+                {this.isContactInfoUpdateOnly && this.state.value === 0 && <ContactInfoStepper/>}
             </div>
             <footer>
 

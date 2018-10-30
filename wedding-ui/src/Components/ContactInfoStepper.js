@@ -7,7 +7,6 @@ import Stepper, { Step, StepLabel, StepContent } from 'material-ui/Stepper';
 import Button from 'material-ui/Button';
 import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
-import CircularProgress from 'material-ui/Progress/CircularProgress'
 
 //Custom Components
 import IdentityCard from './IdentityCard';
@@ -66,8 +65,7 @@ class ContactInfoStepper extends React.Component {
       activeStep: 0,
       stepIsValid: false,
       invitationResponse: new InvitationResponse(),
-      nextButtonText: 'Next',
-      loading: false
+      isLoading: false
     }
   }
 
@@ -88,8 +86,7 @@ class ContactInfoStepper extends React.Component {
 
   updateInvitationResponseByWeddingCode = (key, value) => {
     this.setState({
-      loading: true,
-      nextButtonText: ''
+      isLoading: true
     });
 
     GuestService.getGuestInfoByWeddingCode(value.toUpperCase())
@@ -97,13 +94,11 @@ class ContactInfoStepper extends React.Component {
     .then((responseJson) => {
       //console.log("getGuestInfoByWeddingCode response:" + JSON.stringify(responseJson))
       this.setState({
-          nextButtonText: 'Next',
-          loading: false
+        isLoading: false
       });
       if (responseJson.length > 0) {
         this.setState({
-          invitationResponse: responseJson[0],
-
+          invitationResponse: responseJson[0]
         });
         this.updateFormValidation(true);
       } else {
@@ -111,9 +106,12 @@ class ContactInfoStepper extends React.Component {
       }
     })
     .catch((error) => {
+      this.setState({
+          isLoading: false
+      });
       console.error(error);
     });
-  }
+  };
 
   saveUpdatedInvitationResponseToService = () => {
     GuestService.updateGuestInfo(this.state.invitationResponse)
@@ -126,33 +124,13 @@ class ContactInfoStepper extends React.Component {
     });
   };
 
-  updateInvitationResponsePartySize = (newPartySize) => {
-    if (parseInt(this.state.invitationResponse.meals.length, 0) !== parseInt(newPartySize, 0)) {
-      var mealArray = [];
-      for(var i = 0; i < newPartySize; i++) {
-        mealArray.push(this.createMealObject());
-      }
-      this.updateInvitationResponse('meals', mealArray);
-    }
-
-    this.updateInvitationResponse('partySize', newPartySize);
-  };
-
-  createMealObject = () => {
-    return {
-      meat1: '',
-      meat2: '',
-      side1: '',
-      side2: '',
-    }
-  };
-
   getStepContent = (step) => {
     switch (step) {
       case 0:
           return <IdentityCard 
                   weddingCode={this.state.invitationResponse.weddingCode}
                   updateInvitationResponse={this.updateInvitationResponseByWeddingCode}
+                  isLoading={this.state.isLoading}
                  />;
       case 1:
         return <ContactInfoCard
@@ -236,8 +214,7 @@ class ContactInfoStepper extends React.Component {
                           className={classes.button}
                           disabled={!this.state.stepIsValid}
                         >
-                          {activeStep === steps.length - 1 ? 'Finish' : this.state.nextButtonText}
-                          {this.state.loading ? <CircularProgress size={20} /> : ''}
+                          {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
                         </Button>
                       </div>
                     </div>
