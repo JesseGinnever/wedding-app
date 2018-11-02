@@ -30,6 +30,10 @@ const styles = theme => ({
   button: {
     margin: theme.spacing.unit,
   },
+  barTitle: {
+    fontFamily: '"Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter"',
+    flex: 1
+  }
 });
 
 class ContentSection extends Component {
@@ -38,7 +42,13 @@ class ContentSection extends Component {
     value: 0
   };
 
+  constructor() {
+    super();
+    this.photoUrl = process.env.REACT_APP_PHOTO_URL;
+  }
+
   isContactInfoUpdateOnly = process.env.REACT_APP_CONTACT_INFO_UPDATE_ONLY === 'true';
+  photoUrl = process.env.REACT_APP_PHOTO_URL;
 
   handleChange = (event, value) => {
     this.setState({ value });
@@ -53,27 +63,9 @@ class ContentSection extends Component {
   render() {
     const { classes } = this.props;
 
-    const contactInfoList = (
-        <div>
-          <List component="nav" value={this.state.value}>
-            <ListItem button>
-              <ListItemIcon>
-                <InboxIcon />
-              </ListItemIcon>
-              <ListItemText primary="Contact Info" onClick={() => this.handleChange(undefined, 0)}/>
-            </ListItem>
-            <ListItem button>
-              <ListItemIcon>
-                <DraftsIcon />
-              </ListItemIcon>
-              <ListItemText primary="Photos" onClick={()=> window.open("process.env.PHOTO_URL", "_blank")}/>
-            </ListItem>
-          </List>
-        </div>
-    );
-
     const rsvpList = (
         <div>
+          <Drawer open={this.state.left} onClose={this.toggleDrawer('left', false)}>
           <List component="nav" value={this.state.value}>
               <ListItem button>
                   <ListItemIcon>
@@ -88,28 +80,20 @@ class ContentSection extends Component {
                   <ListItemText primary="Gifts" onClick={() => this.handleChange(undefined, 1)}/>
               </ListItem>
           </List>
+          </Drawer>
         </div>
     );
 
     const rsvpNavItems = (
         <div>
-          <Tabs value={this.state.value} onChange={this.handleChange} centered fullWidth>
-            <Tab label="RSVP" />
-            <Tab label="Gifts" />
-            <Tab label="Food, Drinks, Games" />
-          </Tabs>
+            <div tabIndex={0} role="button" onClick={this.toggleDrawer('left', false)} onKeyDown={this.toggleDrawer('left', false)}>
+              <Tabs value={this.state.value} onChange={this.handleChange} centered fullWidth>
+                <Tab label="RSVP" />
+                <Tab label="Gifts" />
+                <Tab label="Food, Drinks, Games" />
+              </Tabs>
+            </div>
         </div>
-    );
-
-    const contactInfoNavItems = (
-      <div>
-        <Tabs value={this.state.value} centered fullWidth>
-          <Tab label="Invitation Address" />
-          <Button variant="raised" color="secondary" className={classes.button} onClick={()=> window.open(process.env.PHOTO_URL, "_blank")}>
-            See Engagement Photos
-          </Button>
-        </Tabs>
-      </div>
     );
 
     return (
@@ -121,19 +105,20 @@ class ContentSection extends Component {
                       <MenuIcon />
                     </IconButton>
                   </Hidden>
-                  <Typography variant="title" color="inherit" className="navBarTitle">
-                    Sedovic - Ginnever Wedding
+                  <Typography variant="title" color="inherit" className={classes.barTitle}>
+                    Cody & Hilary
                   </Typography>
                   <Hidden smDown>
-                    {this.isContactInfoUpdateOnly ? contactInfoNavItems : rsvpNavItems}
+                      {this.isContactInfoUpdateOnly ? null : rsvpNavItems}
                   </Hidden>
+                  {!this.isContactInfoUpdateOnly ? rsvpList : null}
+                <Button variant="raised" color="secondary" className={classes.button} onClick={()=> window.open(process.env.REACT_APP_PHOTO_URL, "_blank")}>
+                  View Photos
+                </Button>
               </Toolbar>
             </AppBar>
-            <Drawer open={this.state.left} onClose={this.toggleDrawer('left', false)}>
-              <div tabIndex={0} role="button" onClick={this.toggleDrawer('left', false)} onKeyDown={this.toggleDrawer('left', false)}>
-                {!this.isContactInfoUpdateOnly ? rsvpList : contactInfoList}
-              </div>
-            </Drawer>
+
+
             <div>
                 {!this.isContactInfoUpdateOnly && this.state.value === 0 && <VerticalRSVPStepper />}
                 {!this.isContactInfoUpdateOnly && this.state.value === 1 && <Charities />}

@@ -235,7 +235,7 @@ class VerticalRSVPStepper extends React.Component {
                         </Button>
                         <Button
                           variant="raised"
-                          color="primary"
+                          color="secondary"
                           onClick={this.handleNext}
                           className={classes.button}
                           disabled={!this.state.stepIsValid}
@@ -262,6 +262,9 @@ class VerticalRSVPStepper extends React.Component {
               </Typography>
               <Button onClick={this.handleReset} className={classes.button}>
                 Reset
+              </Button>
+              <Button variant="raised" color="secondary" className={classes.button} onClick={()=> window.open(process.env.REACT_APP_PHOTO_URL, "_blank")}>
+                View Photos
               </Button>
             </Paper>
           )}

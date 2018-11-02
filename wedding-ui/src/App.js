@@ -8,14 +8,15 @@ import './App.css';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { createMuiTheme } from 'material-ui/styles';
 import teal from 'material-ui/colors/teal';
-import pink from 'material-ui/colors/pink';
 import red from 'material-ui/colors/red';
 
 //Theme setup
 const theme = createMuiTheme({
   palette: {
     primary: teal,
-    secondary: pink,
+    secondary: {
+      main: '#1769aa',
+    },
     error: red,
     // Used by `getContrastText()` to maximize the contrast between the background and
     // the text.
@@ -25,6 +26,13 @@ const theme = createMuiTheme({
     // E.g., shift from Red 500 to Red 300 or Red 700.
     tonalOffset: 0.2,
   },
+  overrides: {
+    MuiButton: {
+      root: {
+        backgroundColor: teal
+      }
+    }
+  }
 });
 
 class App extends Component {

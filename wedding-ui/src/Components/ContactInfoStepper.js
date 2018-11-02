@@ -209,7 +209,7 @@ class ContactInfoStepper extends React.Component {
                         </Button>
                         <Button
                           variant="raised"
-                          color="primary"
+                          color="secondary"
                           onClick={this.handleNext}
                           className={classes.button}
                           disabled={!this.state.stepIsValid}
@@ -230,19 +230,19 @@ class ContactInfoStepper extends React.Component {
               </Typography>
               {this.saveUpdatedInvitationResponseToService()}
               <Typography component="p">
-                  Thank you for updating your contact info for us!
+                  Thank you!
               </Typography>
               <Typography component="p">
-                  We will be sending the wedding invitation (which will be completed on this website) to this email address!
-              </Typography>
-              <Typography component="p">
-                  We will also be sending all wedding updates to the email entered in the previous step.
+                  Please watch this email address for an electronic invitation to our wedding!
               </Typography>
               <Typography component="p">
                   Please feel free to update this address at any time!
               </Typography>
               <Button onClick={this.handleReset} className={classes.button}>
                 Reset
+              </Button>
+              <Button variant="raised" color="secondary" className={classes.button} onClick={()=> window.open(process.env.REACT_APP_PHOTO_URL, "_blank")}>
+                View Photos
               </Button>
             </Paper>
           )}

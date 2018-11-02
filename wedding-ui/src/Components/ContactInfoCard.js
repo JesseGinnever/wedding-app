@@ -41,6 +41,21 @@ class ContactInfoCard extends React.Component {
     this.props.validationCallback(true);
   }
 
+
+
+  onHandleEmailChange(event) {
+    this.setState(
+      {
+        emailAddress: event.target.value,
+      },
+      this.checkFormValidation);
+  };
+
+  checkFormValidation() {
+    this.props.updateInvitationResponse('emailAddress', this.props.emailAddress);;
+    this.props.validationCallback(/^.*@.?./g.test(this.state.emailAddress));
+  }
+
   render () {
     const { classes } = this.props;
 
@@ -50,8 +65,8 @@ class ContactInfoCard extends React.Component {
           <Typography variant="headline" component="h2">
             Please enter your email address below!
           </Typography>
-          <Typography component="p">
-              Please enter your email address below so we can update you when the wedding invitation and other updates are available.
+          <Typography variant="headline" component="h4">
+            We will be using this email to send your invitation!
           </Typography>
           <Grid container spacing={24}>
             <Grid item xs={12} sm={6}>
@@ -71,8 +86,8 @@ class ContactInfoCard extends React.Component {
                   label="Email Address"
                   className={classes.textField}
                   margin="normal"
-                  value={this.props.emailAddress}
-                  onChange={(e) => this.props.updateInvitationResponse('emailAddress', e.target.value)}
+                  value={this.state.emailAddress}
+                  onChange={(event) => this.onHandleEmailChange(event)}
                 />
               </Grid>
             : null}

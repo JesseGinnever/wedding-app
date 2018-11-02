@@ -2,8 +2,9 @@
   font-family: 'Roboto', sans-serif;
 }
 
-.navBarTitle {
-  flex: 1;
+body {
+  background-color: #efefef;;
+  height: 100%;
 }
 
 .App-logo {
