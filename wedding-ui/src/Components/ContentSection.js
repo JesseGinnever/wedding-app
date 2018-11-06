@@ -16,7 +16,6 @@ import { withStyles } from 'material-ui/styles';
 import Hidden from 'material-ui/Hidden';
 
 //Custom Components
-
 import VerticalRSVPStepper from './VerticalRSVPStepper';  
 import ContactInfoStepper from './ContactInfoStepper';
 import Charities from './Charities';
@@ -33,7 +32,10 @@ const styles = theme => ({
   barTitle: {
     fontFamily: '"Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter"',
     flex: 1
-  }
+  },
+  contentSection: {
+    opacity: .9
+  },
 });
 
 class ContentSection extends Component {
@@ -47,7 +49,7 @@ class ContentSection extends Component {
     this.photoUrl = process.env.REACT_APP_PHOTO_URL;
   }
 
-  isContactInfoUpdateOnly = process.env.REACT_APP_CONTACT_INFO_UPDATE_ONLY === 'true';
+  isContactInfoUpdateOnly = process.env.REACT_APP_CONTACT_INFO_UPDATE_ONLY === 'false';
   photoUrl = process.env.REACT_APP_PHOTO_URL;
 
   handleChange = (event, value) => {
@@ -97,7 +99,7 @@ class ContentSection extends Component {
     );
 
     return (
-      <div className="ContentSection">
+      <div className={classes.contentSection}>
           <AppBar position="static">
               <Toolbar>
                   <Hidden mdUp>
@@ -126,7 +128,6 @@ class ContentSection extends Component {
                 {this.isContactInfoUpdateOnly && this.state.value === 0 && <ContactInfoStepper/>}
             </div>
             <footer>
-
             </footer>
       </div>
     );
